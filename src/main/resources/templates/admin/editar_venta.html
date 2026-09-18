@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXSHOP · Editar venta</title>
+<link rel="stylesheet" th:href="@{/css/variables.css}">
+<link rel="stylesheet" th:href="@{/css/panel.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="panel-body">
+<div class="panel-layout">
+<aside class="panel-sidebar">
+<a th:href="@{/tienda}" class="panel-logo">NEXSHOP</a>
+<nav class="panel-nav">
+<a th:href="@{/admin/dashboard}" th:if="${session.rol == 'admin'}">Dashboard</a>
+<a th:href="@{/admin/usuarios}" th:if="${session.rol == 'admin'}">Usuarios</a>
+<a th:href="@{/admin/categorias}" th:if="${session.rol == 'admin'}">Categorías</a>
+<a th:href="@{/admin/ventas}" th:if="${session.rol == 'admin'}">Ventas</a>
+<a th:href="@{/vendedor/dashboard}" th:if="${session.rol == 'vendedor'}">Dashboard</a>
+<a th:href="@{/vendedor/productos}" th:if="${session.rol == 'vendedor'}">Mis productos</a>
+<a th:href="@{/vendedor/pedidos}" th:if="${session.rol == 'vendedor'}">Pedidos</a>
+</nav>
+<a th:href="@{/tienda}" class="panel-back">← Volver a la tienda</a>
+<a th:href="@{/logout}" class="panel-logout">Salir</a>
+</aside>
+<div class="panel-main">
+<header class="panel-topbar"><span class="panel-user" th:text="${session.usuario}">usuario</span></header>
+<main class="panel-content">
+
+<div class="panel-card panel-card-narrow">
+<h1>Editar Venta</h1>
+<form th:action="@{/admin/venta/editar}" method="POST" class="panel-form">
+<input type="hidden" name="id" th:value="${venta.idVenta}">
+<label>Estado<select name="estado"><option value="Pendiente" th:selected="${venta.estado == 'Pendiente'}">Pendiente</option><option value="Pagada" th:selected="${venta.estado == 'Pagada'}">Pagada</option></select></label>
+<label>Método de Pago<input type="text" name="metodoPago" th:value="${venta.metodoPago}" required></label>
+<label>Dirección de Envío<input type="text" name="direccionEnvio" th:value="${venta.direccionEnvio}" required></label>
+<div class="panel-form-actions"><a th:href="@{/admin/ventas}" class="btn-secondary">Cancelar</a><button type="submit" class="btn-primary">Guardar Cambios</button></div>
+</form>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

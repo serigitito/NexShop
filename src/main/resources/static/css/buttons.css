@@ -1,0 +1,11 @@
+.btn-primary, .btn-secondary, .btn-update {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  text-decoration: none; cursor: pointer; transition: var(--transition); font-weight: 700;
+}
+.btn-primary { width: auto; border: 0; padding: 12px 20px; border-radius: 12px; background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.btn-secondary { padding: 11px 19px; border: 1px solid var(--border); border-radius: 12px; background: #fff; color: var(--text); }
+.btn-secondary:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+.btn-update { padding: 8px 14px; border: 0; border-radius: 10px; background: var(--primary); color: #fff; }
+.btn-update:hover { background: var(--primary-dark); }
+button.btn-primary { appearance: none; font-family: inherit; }

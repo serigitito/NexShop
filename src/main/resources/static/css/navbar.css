@@ -1,0 +1,18 @@
+.nav { position: sticky; top: 0; z-index: 1000; background: rgba(17,24,39,.96); border-bottom: 1px solid rgba(255,255,255,.08); backdrop-filter: blur(12px); }
+.nav-container { width: min(1280px, calc(100% - 40px)); min-height: 72px; margin: auto; display: flex; align-items: center; gap: 22px; }
+.logo { color: #fff; text-decoration: none; font-size: 21px; font-weight: 900; letter-spacing: .08em; }
+.search-box { position: relative; flex: 1; max-width: 650px; margin: auto; }
+.search-box input { width: 100%; padding: 12px 44px 12px 17px; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; outline: 0; background: rgba(255,255,255,.08); color: #fff; }
+.search-box input::placeholder { color: rgba(255,255,255,.5); }
+.search-box input:focus { border-color: var(--secondary); background: rgba(255,255,255,.12); box-shadow: 0 0 0 3px rgba(167,139,250,.15); }
+.search-box i { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,.65); }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.cart-link { position: relative; color: #fff; text-decoration: none; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; }
+.cart-link:hover { background: rgba(255,255,255,.08); }
+#cart-count { position: absolute; top: 1px; right: 0; min-width: 18px; height: 18px; padding: 0 5px; display: grid; place-items: center; border-radius: 999px; background: var(--primary); color: #fff; font-size: 10px; font-weight: 800; }
+.btn-login { display: inline-flex; align-items: center; padding: 10px 15px; border-radius: 10px; background: #fff; color: var(--dark); text-decoration: none; font-size: 13px; font-weight: 700; }
+.btn-login:hover { background: var(--primary-soft); color: var(--primary-dark); }
+.user-box { display: flex; align-items: center; gap: 8px; color: #fff; }
+.avatar { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--primary); color: #fff; font-size: 13px; font-weight: 800; }
+.user-name { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 600; }
+@media (max-width: 768px) { .nav-container { width: min(100% - 24px, 1280px); flex-wrap: wrap; padding: 10px 0; } .search-box { order: 3; flex-basis: 100%; max-width: none; } .nav { position: relative; } .user-name { display: none; } }

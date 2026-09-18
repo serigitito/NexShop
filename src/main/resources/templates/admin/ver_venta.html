@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXSHOP · Detalle de venta</title>
+<link rel="stylesheet" th:href="@{/css/variables.css}">
+<link rel="stylesheet" th:href="@{/css/panel.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="panel-body">
+<div class="panel-layout">
+<aside class="panel-sidebar">
+<a th:href="@{/tienda}" class="panel-logo">NEXSHOP</a>
+<nav class="panel-nav">
+<a th:href="@{/admin/dashboard}" th:if="${session.rol == 'admin'}">Dashboard</a>
+<a th:href="@{/admin/usuarios}" th:if="${session.rol == 'admin'}">Usuarios</a>
+<a th:href="@{/admin/categorias}" th:if="${session.rol == 'admin'}">Categorías</a>
+<a th:href="@{/admin/ventas}" th:if="${session.rol == 'admin'}">Ventas</a>
+<a th:href="@{/vendedor/dashboard}" th:if="${session.rol == 'vendedor'}">Dashboard</a>
+<a th:href="@{/vendedor/productos}" th:if="${session.rol == 'vendedor'}">Mis productos</a>
+<a th:href="@{/vendedor/pedidos}" th:if="${session.rol == 'vendedor'}">Pedidos</a>
+</nav>
+<a th:href="@{/tienda}" class="panel-back">← Volver a la tienda</a>
+<a th:href="@{/logout}" class="panel-logout">Salir</a>
+</aside>
+<div class="panel-main">
+<header class="panel-topbar"><span class="panel-user" th:text="${session.usuario}">usuario</span></header>
+<main class="panel-content">
+
+<div class="panel-card">
+<h2>🧾 Venta #<span th:text="${venta.idVenta}">1</span></h2>
+<p><strong>Cliente:</strong> <span th:text="${@ventaService.nombreCliente(venta.idCliente)}">Cliente</span></p>
+<p><strong>Correo:</strong> <span th:text="${@ventaService.correoCliente(venta.idCliente)}">correo</span></p>
+<p><strong>Fecha:</strong> <span th:text="${venta.fecha}">2026-01-01</span></p>
+<p><strong>Método:</strong> <span th:text="${venta.metodoPago}">PayU</span></p>
+<p><strong>Estado:</strong> <span th:text="${venta.estado}">Pagada</span></p>
+<p><strong>Dirección:</strong> <span th:text="${venta.direccionEnvio}">Dirección</span></p>
+</div>
+
+<div class="panel-card">
+<h2>🛒 Productos</h2>
+<table class="panel-table">
+<tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th></tr>
+<tr th:each="d : ${detalles}">
+<td th:text="${@ventaService.obtenerProducto(d.idProducto).nombre}">Producto</td>
+<td th:text="${d.cantidad}">1</td><td th:text="${'$' + d.precioUnitario}">$0</td>
+<td th:text="${'$' + d.subtotal}">$0</td>
+</tr>
+</table>
+<p>Subtotal: <strong th:text="${'$' + venta.subtotal}">$0</strong></p>
+<p>IVA: <strong th:text="${'$' + venta.iva}">$0</strong></p>
+<p>Total: <strong th:text="${'$' + venta.costoFinal}">$0</strong></p>
+<a th:href="@{/admin/ventas}" class="btn-primary">← Volver</a>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

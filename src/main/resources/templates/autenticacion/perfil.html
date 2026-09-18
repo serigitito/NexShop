@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXSHOP · Mi perfil</title>
+<link rel="stylesheet" th:href="@{/css/variables.css}">
+<link rel="stylesheet" th:href="@{/css/tienda.css}">
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+<link rel="stylesheet" th:href="@{/css/cards.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.css}">
+<link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+<header class="nav"><div class="nav-container">
+  <a class="logo" th:href="@{/tienda}">NEXSHOP</a>
+  <div class="nav-actions"><a th:href="@{/tienda}" class="btn-secondary">Tienda</a><a th:href="@{/logout}" class="btn-login">Salir</a></div>
+</div></header>
+
+<section class="checkout-section">
+  <h1>Mi Perfil</h1>
+  <div th:if="${param.actualizado != null}" class="auth-alert alert-success">Información actualizada correctamente.</div>
+
+  <div class="checkout-card">
+    <div class="info-row"><div><span class="info-label">Nombre</span><span class="info-value" th:text="${usuarioPerfil.nombre}"></span></div></div>
+    <div class="info-row"><div><span class="info-label">Usuario</span><span class="info-value" th:text="${usuarioPerfil.usuario}"></span></div></div>
+    <div class="info-row"><div><span class="info-label">Correo</span><span class="info-value" th:text="${usuarioPerfil.correo}"></span></div></div>
+    <div class="info-row"><div><span class="info-label">Teléfono</span><span class="info-value" th:text="${usuarioPerfil.telefono}"></span></div></div>
+    <div class="info-row"><div><span class="info-label">Dirección</span><span class="info-value" th:text="${usuarioPerfil.direccion}"></span></div></div>
+    <div class="info-row"><div><span class="info-label">Rol</span><span class="info-value" th:text="${usuarioPerfil.rol}"></span></div></div>
+
+    <div class="checkout-actions">
+      <a th:href="@{/tienda}" class="btn-secondary">← Volver</a>
+      <a th:href="@{/perfil/editar}" class="btn-primary">Editar perfil</a>
+    </div>
+  </div>
+</section>
+</body>
+</html>

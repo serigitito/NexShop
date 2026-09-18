@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXSHOP</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" th:href="@{/css/variables.css}">
+<link rel="stylesheet" th:href="@{/css/tienda.css}">
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+<link rel="stylesheet" th:href="@{/css/cards.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.css}">
+<link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+
+<header class="nav">
+<div class="nav-container">
+  <a class="logo" th:href="@{/tienda}">NEXSHOP</a>
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Buscar productos, marcas y más...">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+  <div class="nav-actions">
+    <a th:href="@{/carrito}" class="cart-link"><i class="fa-solid fa-cart-shopping"></i><span id="cart-count" th:text="${cartCount}">0</span></a>
+    <a th:if="${session.usuario == null}" th:href="@{/login}" class="btn-login">Ingresar</a>
+    <div th:if="${session.usuario != null}" class="user-box">
+      <span class="avatar" th:text="${#strings.toUpperCase(#strings.substring(session.usuario,0,1))}">U</span>
+      <span class="user-name" th:text="${session.usuario}">usuario</span>
+      <a th:href="@{/logout}" class="btn-login">Salir</a>
+    </div>
+  </div>
+</div>
+</header>
+
+<main class="container">
+<section class="hero">
+  <div class="hero-content">
+    <h1>Todo lo que necesitas en un solo lugar</h1>
+    <p>Ofertas exclusivas en tecnología y más</p>
+    <a href="#productos" class="btn-primary">Explorar ahora</a>
+  </div>
+</section>
+
+<section class="categories">
+  <h2>Categorías</h2>
+  <div class="categories-grid">
+    <a th:each="cat : ${categorias}" th:href="@{/tienda(categoria=${cat})}" class="cat-card">
+      <span>📦</span><p th:text="${cat}">Categoría</p>
+    </a>
+  </div>
+</section>
+
+<section class="products">
+  <h2>Productos destacados</h2>
+  <div id="productos" class="grid">
+    <div th:each="p : ${productos}" class="card">
+      <img th:src="${p.imagen}" alt="producto">
+      <div class="card-body">
+        <h3 th:text="${p.nombre}">Producto</h3>
+        <p class="price" th:text="${'$' + p.precio}">$0</p>
+        <a th:href="@{/carrito/agregar(id=${p.idProducto})}" class="btn-add">Agregar al carrito</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+document.getElementById("search").addEventListener("keyup", function () {
+  fetch("/api/productos/buscar?q=" + encodeURIComponent(this.value))
+    .then(res => res.json())
+    .then(data => {
+      const contenedor = document.getElementById("productos");
+      contenedor.innerHTML = "";
+      data.forEach(p => {
+        contenedor.innerHTML += `
+          <div class="card">
+            <img src="${p.imagen}" alt="producto">
+            <div class="card-body">
+              <h3>${p.nombre}</h3>
+              <p class="price">$${p.precio}</p>
+              <a href="/carrito/agregar?id=${p.idProducto}" class="btn-add">Agregar al carrito</a>
+            </div>
+          </div>`;
+      });
+    });
+});
+</script>
+</body>
+</html>

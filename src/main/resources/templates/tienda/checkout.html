@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXSHOP · Checkout</title>
+<link rel="stylesheet" th:href="@{/css/variables.css}">
+<link rel="stylesheet" th:href="@{/css/tienda.css}">
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+<link rel="stylesheet" th:href="@{/css/cards.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.css}">
+</head>
+<body>
+<main class="container">
+<section class="checkout-section">
+<h1>💳 Finalizar compra</h1>
+
+<div class="checkout-card">
+<h2 class="checkout-subtitle">Datos de envío</h2>
+<div class="info-row"><div><span class="info-label">Nombre</span><span class="info-value" th:text="${cliente.nombre}"></span></div></div>
+<div class="info-row"><div><span class="info-label">Correo</span><span class="info-value" th:text="${cliente.correo}"></span></div></div>
+<div class="info-row"><div><span class="info-label">Teléfono</span><span class="info-value" th:text="${cliente.telefono}"></span></div></div>
+<div class="info-row"><div><span class="info-label">Dirección</span><span class="info-value" th:text="${cliente.direccion}"></span></div></div>
+</div>
+
+<div class="checkout-summary">
+  <div class="row total"><span>Total a pagar</span><span th:text="${'$' + total}">$0</span></div>
+  <div class="checkout-actions">
+    <a th:href="@{/carrito}" class="btn-secondary">← Volver al carrito</a>
+    <form th:action="@{/checkout/procesar}" method="POST"><button type="submit" class="btn-primary">Confirmar compra</button></form>
+  </div>
+</div>
+</section>
+</main>
+</body>
+</html>

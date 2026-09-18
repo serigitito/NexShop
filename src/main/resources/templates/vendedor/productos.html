@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXSHOP · Mis productos</title>
+<link rel="stylesheet" th:href="@{/css/variables.css}">
+<link rel="stylesheet" th:href="@{/css/panel.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="panel-body">
+<div class="panel-layout">
+<aside class="panel-sidebar">
+<a th:href="@{/tienda}" class="panel-logo">NEXSHOP</a>
+<nav class="panel-nav">
+<a th:href="@{/admin/dashboard}" th:if="${session.rol == 'admin'}">Dashboard</a>
+<a th:href="@{/admin/usuarios}" th:if="${session.rol == 'admin'}">Usuarios</a>
+<a th:href="@{/admin/categorias}" th:if="${session.rol == 'admin'}">Categorías</a>
+<a th:href="@{/admin/ventas}" th:if="${session.rol == 'admin'}">Ventas</a>
+<a th:href="@{/vendedor/dashboard}" th:if="${session.rol == 'vendedor'}">Dashboard</a>
+<a th:href="@{/vendedor/productos}" th:if="${session.rol == 'vendedor'}">Mis productos</a>
+<a th:href="@{/vendedor/pedidos}" th:if="${session.rol == 'vendedor'}">Pedidos</a>
+</nav>
+<a th:href="@{/tienda}" class="panel-back">← Volver a la tienda</a>
+<a th:href="@{/logout}" class="panel-logout">Salir</a>
+</aside>
+<div class="panel-main">
+<header class="panel-topbar"><span class="panel-user" th:text="${session.usuario}">usuario</span></header>
+<main class="panel-content">
+
+<div class="panel-header-row"><h1>Mis productos</h1><a th:href="@{/vendedor/producto/nuevo}" class="btn-primary">+ Nuevo producto</a></div>
+<div th:if="${param.error != null and param.error[0] == 'tiene_ventas'}" class="panel-alert">No se puede eliminar este producto porque ya tiene ventas registradas.</div>
+<div th:if="${param.error != null and param.error[0] == 'datos'}" class="panel-alert">Revisa los datos del formulario.</div>
+<div class="panel-card">
+<table class="panel-table">
+<tr><th>Imagen</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th></th></tr>
+<tr th:each="p : ${productos}">
+<td><img th:src="${p.imagen}" class="table-thumb" alt=""></td><td th:text="${p.nombre}">Producto</td><td th:text="${p.categoria}">Categoría</td><td th:text="${'$' + p.precio}">$0</td>
+<td><a th:href="@{/vendedor/producto/editar(id=${p.idProducto})}" class="action-link">Editar</a>
+<a th:href="@{/vendedor/producto/eliminar(id=${p.idProducto})}" class="action-link action-danger" onclick="return confirm('¿Eliminar este producto?')">Eliminar</a></td>
+</tr>
+<tr th:if="${#lists.isEmpty(productos)}"><td colspan="5" class="panel-empty">Aún no tienes productos publicados.</td></tr>
+</table>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

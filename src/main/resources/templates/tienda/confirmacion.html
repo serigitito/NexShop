@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXSHOP · Compra realizada</title>
+<link rel="stylesheet" th:href="@{/css/variables.css}">
+<link rel="stylesheet" th:href="@{/css/tienda.css}">
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+<link rel="stylesheet" th:href="@{/css/cards.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.css}">
+</head>
+<body>
+<main class="container">
+<div class="checkout-box">
+  <h2>✅ Compra realizada correctamente</h2>
+  <p>Tu pedido fue registrado exitosamente.</p>
+  <h3>Ventas generadas:</h3>
+  <ul><li th:each="idVenta : ${ventas}" th:text="${'Venta #' + idVenta}">Venta #1</li></ul>
+  <a class="btn-primary" th:href="@{/tienda}">Volver al inicio</a>
+</div>
+</main>
+</body>
+</html>

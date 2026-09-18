@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXSHOP · Registro</title>
+<link rel="stylesheet" th:href="@{/css/variables.css}">
+<link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+<div class="auth-wrapper">
+  <div class="auth-card auth-card-wide">
+    <span class="auth-eyebrow">NEXSHOP</span>
+    <h1>Crea tu cuenta</h1>
+    <p class="auth-sub">Regístrate para comenzar a usar NexShop</p>
+
+    <div th:if="${param.error != null and param.error[0] == 'existe'}" class="auth-alert alert-error">
+      Ese usuario, correo o documento ya está registrado
+    </div>
+    <div th:if="${param.error != null and param.error[0] == 'password'}" class="auth-alert alert-error">
+      La contraseña debe tener mínimo 8 caracteres
+    </div>
+
+    <form method="POST" th:action="@{/auth/registro}" class="auth-form">
+      <div class="auth-grid">
+        <div class="auth-field"><label>Documento</label><input type="number" name="documento" required></div>
+        <div class="auth-field"><label>Nombre completo</label><input type="text" name="nombre" required></div>
+        <div class="auth-field"><label>Usuario</label><input type="text" name="usuario" required></div>
+        <div class="auth-field"><label>Correo</label><input type="email" name="correo" required></div>
+        <div class="auth-field"><label>Teléfono</label><input type="text" name="telefono" required></div>
+        <div class="auth-field"><label>Dirección</label><input type="text" name="direccion" required></div>
+        <div class="auth-field"><label>Contraseña</label><input type="password" name="contrasena" minlength="8" required></div>
+        <div class="auth-field span-2"><button type="submit" class="btn-primary">Crear cuenta</button></div>
+      </div>
+    </form>
+
+    <div class="auth-footer">¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a></div>
+  </div>
+</div>
+</body>
+</html>

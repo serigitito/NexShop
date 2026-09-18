@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXSHOP · Ventas</title>
+<link rel="stylesheet" th:href="@{/css/variables.css}">
+<link rel="stylesheet" th:href="@{/css/panel.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="panel-body">
+<div class="panel-layout">
+<aside class="panel-sidebar">
+<a th:href="@{/tienda}" class="panel-logo">NEXSHOP</a>
+<nav class="panel-nav">
+<a th:href="@{/admin/dashboard}" th:if="${session.rol == 'admin'}">Dashboard</a>
+<a th:href="@{/admin/usuarios}" th:if="${session.rol == 'admin'}">Usuarios</a>
+<a th:href="@{/admin/categorias}" th:if="${session.rol == 'admin'}">Categorías</a>
+<a th:href="@{/admin/ventas}" th:if="${session.rol == 'admin'}">Ventas</a>
+<a th:href="@{/vendedor/dashboard}" th:if="${session.rol == 'vendedor'}">Dashboard</a>
+<a th:href="@{/vendedor/productos}" th:if="${session.rol == 'vendedor'}">Mis productos</a>
+<a th:href="@{/vendedor/pedidos}" th:if="${session.rol == 'vendedor'}">Pedidos</a>
+</nav>
+<a th:href="@{/tienda}" class="panel-back">← Volver a la tienda</a>
+<a th:href="@{/logout}" class="panel-logout">Salir</a>
+</aside>
+<div class="panel-main">
+<header class="panel-topbar"><span class="panel-user" th:text="${session.usuario}">usuario</span></header>
+<main class="panel-content">
+
+<div class="panel-header-row">
+<h1>Ventas</h1>
+<form th:action="@{/admin/ventas}" method="GET" class="panel-search">
+<input type="text" name="q" placeholder="Buscar por cliente, vendedor o # de venta..." th:value="${busqueda}">
+<button type="submit">🔎</button>
+</form>
+</div>
+
+<div class="panel-card">
+<table class="panel-table">
+<tr><th>#</th><th>Fecha</th><th>Cliente</th><th>Vendedor</th><th>Método</th><th>Pago</th><th>Envío</th><th>Total</th><th></th></tr>
+<tr th:each="v : ${ventas}">
+<td th:text="${'#' + v.idVenta}">#1</td><td th:text="${v.fecha}">2026-01-01</td>
+<td th:text="${@ventaService.nombreCliente(v.idCliente)}">Cliente</td>
+<td th:text="${@ventaService.nombreVendedor(v.idVendedor)}">Vendedor</td>
+<td th:text="${v.metodoPago}">PayU</td><td th:text="${v.estado}">Pagada</td>
+<td th:text="${v.estadoEnvio}">Preparando</td><td th:text="${'$' + v.costoFinal}">$0</td>
+<td>
+<a th:href="@{/admin/venta/ver(id=${v.idVenta})}" class="action-link">Ver</a>
+<a th:href="@{/admin/venta/editar(id=${v.idVenta})}" class="action-link">Editar</a>
+</td>
+</tr>
+<tr th:if="${#lists.isEmpty(ventas)}"><td colspan="9" class="panel-empty">No se encontraron ventas.</td></tr>
+</table>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

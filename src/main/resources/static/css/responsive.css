@@ -1,0 +1,10 @@
+@media (max-width: 768px) {
+  .grid, .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .grid, .products-grid { grid-template-columns: 1fr; }
+  .card img, .product-card img { height: 230px; }
+  .panel-form-actions { flex-direction: column; }
+  .panel-form-actions .btn-primary, .panel-form-actions .btn-secondary { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }

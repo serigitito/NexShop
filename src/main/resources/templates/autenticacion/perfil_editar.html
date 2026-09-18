@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXSHOP · Editar perfil</title>
+<link rel="stylesheet" th:href="@{/css/variables.css}">
+<link rel="stylesheet" th:href="@{/css/tienda.css}">
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+<link rel="stylesheet" th:href="@{/css/cards.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.css}">
+<link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+<section class="checkout-section">
+  <h1>Editar mi perfil</h1>
+
+  <div th:if="${param.error != null and param.error[0] == 'duplicado'}" class="auth-alert alert-error">
+    Ese usuario o correo ya está en uso por otra cuenta
+  </div>
+  <div th:if="${param.error != null and param.error[0] == 'datos'}" class="auth-alert alert-error">
+    Todos los campos son obligatorios
+  </div>
+  <div th:if="${param.error != null and param.error[0] == 'password'}" class="auth-alert alert-error">
+    La contraseña debe tener mínimo 8 caracteres
+  </div>
+
+  <div class="checkout-card">
+    <form method="POST" th:action="@{/perfil/actualizar}" class="auth-form">
+      <div class="auth-grid">
+        <div class="auth-field"><label>Nombre completo</label><input type="text" name="nombre" th:value="${usuarioPerfil.nombre}" required></div>
+        <div class="auth-field"><label>Usuario</label><input type="text" name="usuario" th:value="${usuarioPerfil.usuario}" required></div>
+        <div class="auth-field"><label>Correo</label><input type="email" name="correo" th:value="${usuarioPerfil.correo}" required></div>
+        <div class="auth-field"><label>Teléfono</label><input type="text" name="telefono" th:value="${usuarioPerfil.telefono}" required></div>
+        <div class="auth-field span-2"><label>Dirección</label><input type="text" name="direccion" th:value="${usuarioPerfil.direccion}" required></div>
+        <div class="auth-field span-2"><label>Nueva contraseña</label><input type="password" name="contrasena" minlength="8" placeholder="Mínimo 8 caracteres (déjalo en blanco para no cambiarla)"></div>
+      </div>
+      <div class="checkout-actions">
+        <a th:href="@{/perfil}" class="btn-secondary">Cancelar</a>
+        <button type="submit" class="btn-primary">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
+</section>
+</body>
+</html>

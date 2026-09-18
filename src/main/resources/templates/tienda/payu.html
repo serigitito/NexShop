@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Redirigiendo a PayU...</title></head>
+<body>
+<form id="payuForm" method="post" th:action="${payuUrl}">
+<input type="hidden" name="merchantId" th:value="${merchantId}">
+<input type="hidden" name="accountId" th:value="${accountId}">
+<input type="hidden" name="description" value="Compra NEXSHOP">
+<input type="hidden" name="referenceCode" th:value="${referenceCode}">
+<input type="hidden" name="amount" th:value="${total}">
+<input type="hidden" name="tax" value="0">
+<input type="hidden" name="taxReturnBase" value="0">
+<input type="hidden" name="currency" value="COP">
+<input type="hidden" name="signature" th:value="${signature}">
+<input type="hidden" name="test" value="1">
+<input type="hidden" name="buyerEmail" th:value="${cliente.correo}">
+<input type="hidden" name="responseUrl" value="http://localhost:8080/checkout/respuesta">
+<input type="hidden" name="confirmationUrl" value="http://localhost:8080/checkout/respuesta">
+</form>
+<p style="text-align:center;font-family:sans-serif;color:#64748b;margin-top:40px;">Redirigiendo a la pasarela de pago, por favor espera...</p>
+<script>document.getElementById('payuForm').submit();</script>
+</body>
+</html>
